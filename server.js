@@ -42,7 +42,7 @@ var articles= {
     </P>
             `
 }
-};
+}
 
 function createTemplate (data){
     var title=data.title;
