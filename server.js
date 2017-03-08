@@ -6,23 +6,24 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
-var articleOne={
-    title: 'Abhilasha Singla|article-one',
-    heading:'article one',
-    date : '5 march,2017',
-    content:`
-    <P>
-                this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
-            </P>
-             <P>
-                this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
-            </P>
-             <P>
-                this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
-            </P>
-            `
-};
-var articleTwo={
+var articles= {
+    'article-one':{
+        title: 'Abhilasha Singla|article-one',
+        heading:'article one',
+        date : '5 march,2017',
+        content:`
+        <P>
+                    this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
+                </P>
+                 <P>
+                    this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
+                </P>
+                 <P>
+                    this is my first article.  this is my first article.  this is my first article.  this is my first article.  this is my first article.
+                </P>
+                `
+        },
+    'article-two':{
     title: 'Abhilasha Singla|article-one',
     heading:'article two',
     date : '6 march,2017',
@@ -30,8 +31,8 @@ var articleTwo={
     <P>
                 this is my second article.  
             `
-};
-var articleThree={
+},
+    'article-three':{
     title: 'Abhilasha Singla|article-three',
     heading:'article three',
     date : '7 march,2017',
@@ -40,6 +41,7 @@ var articleThree={
     this is my third article.  
     </P>
             `
+}
 };
 
 function createTemplate (data){
@@ -78,8 +80,11 @@ var htmlTemplate=  `
 `;
 return htmlTemplate;
 }
-app.get('/article-one', function (req, res) {
-res.send(createTemplate(articleOne));
+app.get('/:articleName', function (req, res) {
+    //articleName=article-one
+    //articles(articleName)=={} content object for article one
+    var articleName = req.params.articleName;
+res.send(createTemplate(articles(articleName)));
 });
 app.get('/article-two', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
